@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ophelia Dashboard</title>
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='images/logo.png')}}">
+
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}">
+</head>
+<body>
+
+    <section class="signin">
+        <img src="{{ url_for('static', filename='images/logo.png')}}" alt="Ophelia logo">
+        <h1>Tokens have been successfully added to your account.</h1>
+        <div class="signin-wrapper">
+            <a href="/">Return to Home</a>
+        </div>
+        <p>Mikail Usman & Abdullah Zaman &copy; 2023-Present</p>
+    </section>
+</body>
+</html>

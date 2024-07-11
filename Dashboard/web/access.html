@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ophelia Dashboard</title>
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='images/logo.png')}}">
+
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}">
+</head>
+<body>
+
+    <section class="signin">
+        <img src="{{ url_for('static', filename='images/logo.png')}}" alt="Ophelia logo">
+        <h1 style="padding-left: 10px; padding-right: 10px;">Please register your account using the Ophelia Bot's '/register' command on Discord</h1>
+        <div class="signin-wrapper">
+            <a target="_blank" href="https://discord.gg/6v56KPZPKD" style="margin-bottom: 30px;">Ophelia Discord Server</a>
+        </div>
+        <div class="signin-wrapper">
+            <a target="_blank" href="https://discord.com/api/oauth2/authorize?client_id=1120962937960538112&permissions=8&scope=bot">Add Ophelia to your Server</a>
+        </div>
+        <p>Mikail Usman & Abdullah Zaman &copy; 2023-Present</p>
+    </section>
+</body>
+</html>

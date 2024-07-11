@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ophelia Dashboard</title>
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='images/logo.png')}}">
+
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}">
+
+    <script src="https://js.stripe.com/v3/"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,400,0,0" />
+</head>
+<body>
+
+    {% if user %}
+
+        <main>
+            <section class="header">
+                <div class="header-wrapper">
+                    <h1>Welcome to the Dashboard</h1>
+                    <div>
+                        <a href="/logout"><button class="logout-btn">Sign out</button></a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content">
+                <div class="content-wrapper-A">
+
+                    <div class="user-info">
+                        <div class="user-info-wrapper">
+                            <div>
+                                <img src="{{avatar}}" alt="Account profile picture"/>
+                            </div>
+                            <div class="profile">
+                                <h2>User Profile</h2>
+                                <p> <b>Username:</b> {{user}}</p>
+                                <p> <b>Account ID:</b> {{sendID}}</p>
+                                <a target="_blank" href="https://discord.com/invite/6v56KPZPKD"><p><b style="text-decoration:underline;">Contact Support</b></p></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="user-balance">
+                        <div class="user-balance-wrapper">
+                            <div class="icon">
+                                <!--Icon + purple rounded rectangle goes here-->
+                                <img src="{{ url_for('static', filename='images/wallet.png')}}" alt="Wallet icon"/>
+                            </div>
+                            <div>
+                                <h2>Balance Remaining</h2>
+                                <p>{{sendBalance}}</p> <!--Special font size for this in css-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="user-pricing">
+                    <h2>Purchase Tokens</h2>
+                    <p>Secure Payments via Stripe</p>
+                    <div class="user-pricing-wrapper">
+                        <div class="pay-btn">
+                            <h3>100,000 Tokens</h3>
+                            <p class="subtext">200 Messages</p> <!--Special opacity-->
+                            <div class="btn-wrapper">
+                                <button id="btnA">$0.99</button>
+                            </div>
+                        </div>
+
+                        <div class="pay-btn">
+                            <h3>270,000 Tokens</h3>
+                            <p class="subtext">500 Messages</p>
+                            <div class="btn-wrapper">
+                                <button id="btnB">$1.99</button>
+                            </div>
+                        </div>
+
+                        <div class="pay-btn">
+                            <h3>810,000 Tokens</h3>
+                            <p class="subtext">1500 Messages</p>
+                            <div class="btn-wrapper">
+                                <button id="btnC">$4.99</button>
+                            </div>
+                        </div>
+
+                        <div class="pay-btn">
+                            <h3>2,100,000 Tokens</h3>
+                            <p class="subtext">4000 Messages</p>
+                            <div class="btn-wrapper">
+                                <button id="btnD">$9.99</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+
+    {% else %}
+
+
+        <section class="signin">
+            <img src="{{ url_for('static', filename='images/logo.png')}}" alt="Ophelia logo">
+            <h1>OPHELIA DASHBOARD</h1>
+            <div class="signin-wrapper">
+                <a href="{{oauth_url}}">Sign in with Discord</a>
+            </div>
+            <p>Mikail Usman & Abdullah Zaman &copy; 2023-Present</p>
+        </section>
+
+
+    {% endif %}
+
+    <script src="https://js.stripe.com/v3/"></script>
+    {#
+    <script>
+        const checkout_public_key = '{{checkout_public_key}}';
+        const checkout_session_id1 = '{{checkout_session_id1}}';
+        const checkout_session_id2 = '{{checkout_session_id2}}';
+        const checkout_session_id3 = '{{checkout_session_id3}}';
+        const checkout_session_id4 = '{{checkout_session_id4}}';
+    </script>
+    #}
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+
+</body>
+</html>
