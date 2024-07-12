@@ -483,63 +483,68 @@ async def account_info(interaction: discord.Interaction):
 
 @bot.tree.command(description="Discover Ophelia's Commands")
 async def help(interaction: discord.Interaction):
-    embed = discord.Embed(title= "**Ophelia Help Center**",
+    embed1 = discord.Embed(title= "**Ophelia Help Center**",
                           description= "Below is a list of all our available commands. For more information visit [Ophelia's website](https://ophelia-ai.netlify.app/)",
                           color=discord.Color.blurple(),
                           type = "rich")
-    embed.set_thumbnail(url="https://i.imgur.com/AskjZEG.png")
-    embed.add_field(name="", value="", inline=False)
-    embed.add_field(name="", value="", inline=False)
-    embed.add_field(name="💙 ‎ ‎ ‎ User Utilities:", value="", inline=False)
-    embed.add_field(name="", value="", inline=False)
-    embed.add_field(name="</account:1131265027052142668>",
+    embed1.set_thumbnail(url="https://i.imgur.com/AskjZEG.png")
+    embed1.add_field(name="", value="", inline=False)
+    embed1.add_field(name="", value="", inline=False)
+    embed1.add_field(name="💙 ‎ ‎ ‎ User Utilities:", value="", inline=False)
+    embed1.add_field(name="", value="", inline=False)
+    embed1.add_field(name="</account:1131265027052142668>",
                     value="> Displays your account information, including balance and account type",
                     inline=False)
-    embed.add_field(name="", value="", inline=False)
-    embed.add_field(name="", value="", inline=False)
-    embed.add_field(name="</feedback:1131265027052142670> `[submit_report]`",
+    embed1.add_field(name="", value="", inline=False)
+    embed1.add_field(name="", value="", inline=False)
+    embed1.add_field(name="</feedback:1131265027052142670> `[submit_report]`",
                     value="> Allows you to report problems and suggestions regarding Ophelia",
                     inline=False)
-    embed.add_field(name="", value="", inline=False)
-    embed.add_field(name="", value="", inline=False)
-    embed.add_field(name="</register:1131265027052142665>",
+    embed1.add_field(name="", value="", inline=False)
+    embed1.add_field(name="", value="", inline=False)
+    embed1.add_field(name="</register:1131265027052142665>",
                     value="> Registers your account with Ophelia. You only need to use this command once.", #Typo
                     inline=False)
-    embed.add_field(name="", value="", inline=False)
-    embed.add_field(name="", value="", inline=False)
-    embed.add_field(name="💜 ‎ ‎ ‎ Bot Utilities:", value="", inline=False)
-    embed.add_field(name="", value="", inline=False)
+    embed1.add_field(name="", value="", inline=False)
+    embed1.add_field(name="", value="", inline=False)
 
-    embed.add_field(name="</talk:1133312077793075263> `[message]`",
+    embed2 = discord.Embed(
+                        color=discord.Color.blurple(),
+                        type = "rich")
+    embed2.add_field(name="💜 ‎ ‎ ‎ Bot Utilities:", value="", inline=False)
+    embed2.add_field(name="", value="", inline=False)
+
+    embed2.add_field(name="</talk:1133312077793075263> `[message]`",
                     value="> Allows you to talk with Ophelia", #Typo
                     inline=False)
-    embed.add_field(name="", value="", inline=False)
-    embed.add_field(name="", value="", inline=False)
-    embed.add_field(name="</personality:1132944948933705751> `[behave_like]`",
+    embed2.add_field(name="", value="", inline=False)
+    embed2.add_field(name="", value="", inline=False)
+    embed2.add_field(name="</personality:1132944948933705751> `[behave_like]`",
                     value="> Changes the way Ophelia talks with you",
                     inline=False)
-    embed.add_field(name="", value="", inline=False)
-    embed.add_field(name="", value="", inline=False)
-    embed.add_field(name="</reply_mode:1133325372688171048> `[reply]`",
+    embed2.add_field(name="", value="", inline=False)
+    embed2.add_field(name="", value="", inline=False)
+    embed2.add_field(name="</reply_mode:1133325372688171048> `[reply]`",
                     value="> Toggles automatic replies \n> \n> *Note: This command is only for use in DMs (see </dms:1133700164746485863> below) or [Ophelia's main server](https://discord.gg/z8taFsrEcE)* ",
                     inline=False)
-    embed.add_field(name="", value="", inline=False)
-    embed.add_field(name="", value="", inline=False)
-    embed.add_field(name="</dms:1133700164746485863>",
+    embed2.add_field(name="", value="", inline=False)
+    embed2.add_field(name="", value="", inline=False)
+    embed2.add_field(name="</dms:1133700164746485863>",
                     value="> Automatically creates a DM with Ophelia",
                     inline=False)
-    embed.add_field(name="", value="", inline=False)
-    embed.add_field(name="", value="", inline=False)
-    embed.add_field(name="</visibility:1131527971841245254> `[status]`",
+    embed2.add_field(name="", value="", inline=False)
+    embed2.add_field(name="", value="", inline=False)
+    embed2.add_field(name="</visibility:1131527971841245254> `[status]`",
                     value="> Toggles public visibility of Ophelia's replies to you in 3rd party servers \n> \n> *Note: This command is only for use in 3rd party servers*",
                     inline=False)
-    embed.add_field(name="", value="", inline=False)
-    embed.add_field(name="", value="", inline=False)
-    embed.add_field(name="</clear_memories:1133692597827809392>",
+    embed2.add_field(name="", value="", inline=False)
+    embed2.add_field(name="", value="", inline=False)
+    embed2.add_field(name="</clear_memories:1133692597827809392>",
                     value="> Deletes Ophelia's memory of past conversations, resetting the chat",
                     inline=False)
 
-    await interaction.response.send_message( embed = embed, ephemeral=True)
+    await interaction.channel.send( embed = embed1)
+    await interaction.channel.send( embed = embed2)
 
 
 
