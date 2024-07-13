@@ -1,0 +1,6 @@
+discord.py==2.3.2
+firebase_admin==6.5.0
+openai==1.35.13
+python-dotenv==1.0.1
+tiktoken==0.6.0
+
