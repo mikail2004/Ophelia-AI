@@ -543,7 +543,7 @@ async def help(interaction: discord.Interaction):
                     value="> Deletes Ophelia's memory of past conversations, resetting the chat",
                     inline=False)
 
-    await interaction.channel.send( embed = embed1)
+    await interaction.response.send_message( embed = embed1)
     await interaction.channel.send( embed = embed2)
 
 
