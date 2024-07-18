@@ -459,6 +459,16 @@ nav a:hover{ /*no space between tag and ':hover' I.E h2:hover{}*/
     font-size: large;
 }
 
+.terms li{
+    color: #fff;
+    text-align: left;
+    margin-left: 160px;
+    margin-right: 160px;
+    margin-bottom: 20px;
+    font-family: 'Roboto', sans-serif;
+    font-size: large;
+}
+
 /*----------- FOOTER -----------*/
 footer {
     margin-top: 50px;
@@ -772,6 +782,13 @@ footer {
     .terms p{
         text-align: left;
         margin-left: 20px;
+        margin-right: 20px;
+        font-size: medium;
+    }
+
+    .terms li{
+        text-align: left;
+        margin-left: 0px;
         margin-right: 20px;
         font-size: medium;
     }
