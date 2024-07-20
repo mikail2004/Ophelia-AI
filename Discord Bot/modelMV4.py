@@ -95,22 +95,22 @@ async def getMemorySet(userID): #Receive memorySet json dataset
 
 # ------------ ASYNC TOKEN CONTROLS -------------
 def singleTokenCalc(text):
-    encoding = tiktoken.get_encoding("cl100k_base")
-    encoding = tiktoken.encoding_for_model("gpt-3.5-turbo")
+    encoding = tiktoken.get_encoding("o200k_base")
+    encoding = tiktoken.encoding_for_model("gpt-4o-mini") 
     tokenNumber = len(encoding.encode(text))
     return tokenNumber
 
 def calcTokens(messageArray):
     tokenNumber = 0
-    encoding = tiktoken.get_encoding("cl100k_base")
-    encoding = tiktoken.encoding_for_model("gpt-3.5-turbo-0125")
+    encoding = tiktoken.get_encoding("o200k_base")
+    encoding = tiktoken.encoding_for_model("gpt-4o-mini") 
     for element in messageArray[1:]:
         text = element['content']
         tokenNumber += len(encoding.encode(text))
     return tokenNumber
 
 async def modelSummarizer(messages):
-    payload = {"model": "gpt-3.5-turbo-0125","messages": messages}
+    payload = {"model": "gpt-4o-mini","messages": messages} 
     response = await openaiAPICall(payload)
     content = response['choices'][0]['message']['content']
     return content 
@@ -140,7 +140,7 @@ async def usageHistory(userID, userTokens, outputTK):
     recordDB = await asyncFirebaseCall(db.reference(f"/{userID}/UsageHistory").get)
     x = datetime.datetime.now()
     date = x.strftime(f"%H:%M{time.tzname[time.localtime().tm_isdst]}, %d/%m/%Y")
-    record = recordDB + f"[{date}, {userTokens}/{outputTK}] + "
+    record = recordDB + f"[{date}, IM{userTokens}/O{outputTK}] + " #Where IM would be memory + input tokens, O would be output tokens.
     await asyncFirebaseCall(db.reference(f"/{userID}").update, {"UsageHistory": f"{record}"})
 
 # ------------ ASYNC MODEL CONTROLS -------------
@@ -157,7 +157,7 @@ async def modelResponse(userID, userInput, dbMemories):
     memoryTokens = await asyncFirebaseCall(db.reference(f"/{userID}/MemoryTokens").get) #GUIDE (2/3)
     dbMemories.append({"role": "user", "content": userInput}) 
 
-    payload = {"model": "gpt-3.5-turbo-0125","messages": dbMemories}
+    payload = {"model": "gpt-4o-mini","messages": dbMemories} 
     response = await openaiAPICall(payload)
     responseContent = response['choices'][0]['message']['content']
     dbMemories.append({"role": "assistant", "content": responseContent})
@@ -208,6 +208,7 @@ async def testModeA(userID, limit):
             print("")
             userContent = str(input("Prompt: "))
             
+            #Registers acc if needed.
             if userContent == "/":
                 await registerAcc(MOK_ID)
             else:       
