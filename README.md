@@ -2,7 +2,7 @@
 A SaaS AI Companion Discord Bot.
 
 ## Introduction
-Ophelia is a personal virtual companion on Discord. Powered by OpenAI’s cutting-edge GPT 3.5Turbo she chats engagingly about anything, supports your mental well-being, and adapts her unique personality to your moods and preferences.
+Ophelia is a personal virtual companion on Discord. Powered by OpenAI’s cutting-edge GPT 4o model; she chats engagingly about anything, supports your mental well-being, and adapts her unique personality to your moods and preferences.
 
 
 
