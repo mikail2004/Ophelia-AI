@@ -89,7 +89,7 @@ def home():
 
 @app.route('/stripe_pay')
 def stripe_pay():
-    stripe.PromotionCode.create(coupon="hLvMc68K",) #Promotion code creation (linked to coupon from dashboard) || Don't mention code here, this is only for generation.
+    stripe.PromotionCode.create(coupon="t70LVZvO",) #Promotion code creation (linked to coupon from dashboard) || Don't mention code here, this is only for generation.
 
     #Session for 0.99.
     session1 = stripe.checkout.Session.create(
@@ -130,6 +130,8 @@ def stripe_pay():
         'quantity': 1,
     }],
     mode='payment',
+    allow_promotion_codes=True,
+    customer_creation="always",
     success_url=url_for('thanks', _external=True) + '?session_id={CHECKOUT_SESSION_ID}',
     cancel_url=url_for('home', _external=True)
     )
@@ -143,6 +145,8 @@ def stripe_pay():
         'quantity': 1,
     }],
     mode='payment',
+    allow_promotion_codes=True,
+    customer_creation="always",
     success_url=url_for('thanks', _external=True) + '?session_id={CHECKOUT_SESSION_ID}',
     cancel_url=url_for('home', _external=True)
     )
