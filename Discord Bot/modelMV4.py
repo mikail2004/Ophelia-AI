@@ -57,11 +57,11 @@ modelDataStruct = {
             "MemoryTokens": 0,
             "TotalUserTokens": 0, # Total sum of input and output tokens 
             "Balance": 6000, # Total number of times user can access ophelia
-            "Type": "Trial", # Trial, Admin, Pro, Personal
+            "Type": "Trial", # Trial, Paid user
             "UsageHistory": "",
             "Visibility": True,
-            "Preset": "A", # A, B, C
-            "AutoReply": False
+            "Preset": "C", # A, B, C
+            "AutoReply": True
         }
 
 # ------------ ASYNC DATA CONTROLS -------------
