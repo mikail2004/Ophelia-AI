@@ -20,6 +20,10 @@ i {
     vertical-align: bottom; /*Icon positioning 2/3*/
 }
 
+s {
+    padding-right: 5px;
+}
+
 @font-face {
     font-family: sego;
     src: url(SEGO.ttf);
@@ -667,14 +671,14 @@ footer {
 
     .pricing-card h4{
         font-family: 'Roboto', sans-serif;
-        font-size: 40px;
+        font-size: 21px; /*Originally 40px*/
         margin-top: -5px;
         margin-bottom: 20px;
         font-weight: 400;
     }
 
     .pricing-card p{
-        font-size: medium;
+        font-size: 15px; /*Originally medium*/
         margin-top: -16px;
     }
 
