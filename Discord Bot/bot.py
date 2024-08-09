@@ -36,19 +36,19 @@ async def on_ready():
     print(f'Logged in as {bot.user}')
 
 #Syncs slash commands with all servers
-@bot.tree.command(name='sync', description='Owner only') # Convert to basic command (non slash) once outof dev
-async def sync(interaction: discord.Interaction):
-    if interaction.user.id == ABD_ID or MOK_ID:
-        await bot.tree.sync()
-        print('Command tree synced.')
-        await interaction.response.send_message('Synced!', ephemeral= True)
-    else:
-        await interaction.response.send_message('You must be the owner to use this command!', ephemeral= True)
+# @bot.tree.command(name='sync', description='Owner only') # Convert to basic command (non slash) once outof dev
+# async def sync(interaction: discord.Interaction):
+#     if interaction.user.id == ABD_ID or MOK_ID:
+#         await bot.tree.sync()
+#         print('Command tree synced.')
+#         await interaction.response.send_message('Synced!', ephemeral= True)
+#     else:
+#         await interaction.response.send_message('You must be the owner to use this command!', ephemeral= True)
 
 #fetches guild ID. Only for dev. Remove in final release ~~~~~
-@bot.tree.command()
-async def gid(interaction: discord.Interaction):
-    await interaction.response.send_message(f"{interaction.guild_id}")
+# @bot.tree.command()
+# async def gid(interaction: discord.Interaction):
+#     await interaction.response.send_message(f"{interaction.guild_id}")
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
@@ -72,7 +72,7 @@ async def on_application_command_error(ctx, error):
 
 @bot.tree.command(description="Changes Ophelia's personality")
 @app_commands.describe(u_selection="Select a personality, for more information on these visit our website")
-@app_commands.rename(u_selection="behave_like")
+@app_commands.rename(u_selection="behave")
 @app_commands.choices(u_selection=[
     app_commands.Choice(name="Witty", value= "A"),
     app_commands.Choice(name="Regular", value= "B"),
@@ -243,7 +243,7 @@ async def on_message(message):
                 response = await callModel(str(message.author.id), message.content)
 
                 if response == False:
-                    await message.channel.send("You are out of balance! Please recharge your account here [Ophelia's website](https://ophelia-ai.netlify.app/)") #Update
+                    await message.channel.send("You are out of balance! Please recharge your account here [Ophelia's website](https://ophelia-ai.com/)") #Update
                 else:
                     await message.channel.send(f"{response}")
 
@@ -256,7 +256,7 @@ async def on_message(message):
             response = await callModel(str(message.author.id), message.content)
 
             if response == False:
-                await message.channel.send("You are out of balance! Please recharge your account here [Ophelia's website](https://ophelia-ai.netlify.app/)") #Update
+                await message.channel.send("You are out of balance! Please recharge your account here [Ophelia's website](https://ophelia-ai.com/)") #Update
             else:
                 await message.channel.send(f"{response}")
                 
@@ -284,7 +284,7 @@ async def talk(interaction: discord.Interaction, text_to_send : str):
                 await interaction.response.defer()
                 response = await callModel(str(interaction.user.id), text_to_send)
                 if response == False:
-                    await interaction.followup.send("You are out of balance! Please recharge your account here [Ophelia's website](https://ophelia-ai.netlify.app/)") #Update
+                    await interaction.followup.send("You are out of balance! Please recharge your account here [Ophelia's website](https://ophelia-ai.com/)") #Update
                 else:
                     await interaction.followup.send(f"> ***`{text_to_send}`***\n\n{response}")
             else:
@@ -293,7 +293,7 @@ async def talk(interaction: discord.Interaction, text_to_send : str):
                 response = await callModel(str(interaction.user.id), text_to_send)
 
                 if response == False:
-                    await interaction.followup.send("You are out of balance! Please recharge your account here [Ophelia's website](https://ophelia-ai.netlify.app/)") #Update
+                    await interaction.followup.send("You are out of balance! Please recharge your account here [Ophelia's website](https://ophelia-ai.com/)") #Update
                 else:
                     await interaction.followup.send(f"> ***`{text_to_send}`***\n\n{response}")
     else:
@@ -323,8 +323,8 @@ async def talk_error(ctx, error):
 async def dms(interaction: discord.Interaction):
     channel = await interaction.user.create_dm()
     bot.tree.copy_global_to(guild=channel)
-    embed = discord.Embed(title= "**For the best experience use Ophelia in auto-reply mode!**",
-                          description= "Use </reply_mode:1133325372688171048> `[Automatically to all messages]` to configure this",
+    embed = discord.Embed(title= "**Commands to get started!**",
+                        description= "Use </dms:1133700164746485863> to talk to Ophelia in a **private** direct message \n\n Use </personality:1132944948933705751> `[behave]` to alter how Ophelia behaves \n\n Use </help:1131265027052142669> for a useful list of Ophelia's commands \n\n Ophelia will automatically reply to anything you say in this channel!",
                           color=discord.Color.blurple(),
                           type = "rich")
     embed.set_thumbnail(url="https://i.imgur.com/AskjZEG.png")
@@ -335,8 +335,8 @@ async def dms(interaction: discord.Interaction):
 async def dmsC(interaction: discord.Interaction,  member: discord.Member):
     channel = await interaction.user.create_dm()
     bot.tree.copy_global_to(guild=channel)
-    embed = discord.Embed(title= "**For the best experience use Ophelia in auto-reply mode!**",
-                          description= "Use </reply_mode:1133325372688171048> `[Automatically to all messages]` to configure this setting",
+    embed = discord.Embed(title= "**Commands to get started!**",
+                        description= "Use </dms:1133700164746485863> to talk to Ophelia in a **private** direct message \n\n Use </personality:1132944948933705751> `[behave]` to alter how Ophelia behaves \n\n Use </help:1131265027052142669> for a useful list of Ophelia's commands \n\n Ophelia will automatically reply to anything you say in this channel!",
                           color=discord.Color.blurple(),
                           type = "rich")
     embed.set_thumbnail(url="https://i.imgur.com/AskjZEG.png")
@@ -357,19 +357,24 @@ async def register(interaction: discord.Interaction):
     MAIN_GUILD = bot.get_guild(MAIN_GUILD_ID)
     uc_category = discord.utils.get(MAIN_GUILD.categories, id = category_id)
 
+    if(interaction.user.avatar == None):
+        uavatar = "https://i.imgur.com/vpJPUGG.jpg"
+    else:
+        uavatar = interaction.user.avatar.url
+    
+
     overwrites = { # Permisions for the new channel created in the main server
         MAIN_GUILD.default_role: discord.PermissionOverwrite(read_messages=False),
         interaction.user: discord.PermissionOverwrite(read_messages=True)}
     
-    await interaction.response.defer(ephemeral = True)
-    await asyncio.sleep(3)
+    await interaction.response.defer()
 
     if await registerAcc(str(interaction.user.id)) == True:
 
         if interaction.guild == None: #when called in DM
             privc = await MAIN_GUILD.create_text_channel(f"{interaction.user}'s Channel", overwrites=overwrites, category= uc_category)
-            embed = discord.Embed(title= "**For the best experience use Ophelia in auto-reply mode!**",
-                        description= "Use </reply_mode:1133325372688171048> `[Automatically to all messages]` to configure this setting",
+            embed = discord.Embed(title= "**Commands to get started!**",
+                        description= "Use </dms:1133700164746485863> to talk to Ophelia in a **private** direct message \n\n Use </personality:1132944948933705751> `[behave]` to alter how Ophelia behaves \n\n Use </help:1131265027052142669> for a useful list of Ophelia's commands \n\n Ophelia will automatically reply to anything you say in this channel!",
                         color=discord.Color.blurple(),
                         type = "rich")
             embed.set_thumbnail(url="https://i.imgur.com/AskjZEG.png")
@@ -379,7 +384,7 @@ async def register(interaction: discord.Interaction):
                                 description= "Use ``/help`` to learn more about Ophelia",
                                 color=discord.Color.blurple(),
                                 timestamp = datetime.datetime.now())
-            embed.set_thumbnail(url=f"{interaction.user.avatar}")
+            embed.set_thumbnail(url= uavatar)
             embed.set_footer(text="Generated",
                             icon_url="https://i.imgur.com/AskjZEG.png")
             await interaction.followup.send( embed = embed, ephemeral=True)
@@ -388,8 +393,8 @@ async def register(interaction: discord.Interaction):
         elif interaction.guild.id == MAIN_GUILD_ID: 
 
             privc = await interaction.guild.create_text_channel(f"{interaction.user}'s Channel", overwrites=overwrites, category= uc_category)
-            embed = discord.Embed(title= "**For the best experience use Ophelia in auto-reply mode!**",
-                        description= "Use </reply_mode:1133325372688171048> `[Automatically to all messages]` to configure this setting",
+            embed = discord.Embed(title= "**Commands to get started!**",
+                        description= "Use </dms:1133700164746485863> to talk to Ophelia in a **private** direct message \n\n Use </personality:1132944948933705751> `[behave]` to alter how Ophelia behaves \n\n Use </help:1131265027052142669> for a useful list of Ophelia's commands \n\n Ophelia will automatically reply to anything you say in this channel!",
                         color=discord.Color.blurple(),
                         type = "rich")
             embed.set_thumbnail(url="https://i.imgur.com/AskjZEG.png")
@@ -399,7 +404,7 @@ async def register(interaction: discord.Interaction):
                                 description= f"Please go to <#{privc.id}>",
                                 color=discord.Color.blurple(),
                                 timestamp = datetime.datetime.now())
-            embed.set_thumbnail(url=f"{interaction.user.avatar}")
+            embed.set_thumbnail(url= uavatar)
             embed.set_footer(text="Generated",
                             icon_url="https://i.imgur.com/AskjZEG.png")
             await interaction.followup.send( embed = embed, ephemeral=True)
@@ -410,7 +415,7 @@ async def register(interaction: discord.Interaction):
                                 description= "Use ``/help`` to learn more about Ophelia",
                                 color=discord.Color.blurple(),
                                 timestamp = datetime.datetime.now())
-            embed.set_thumbnail(url=f"{interaction.user.avatar}")
+            embed.set_thumbnail(url= uavatar)
             embed.set_footer(text="Generated",
                             icon_url="https://i.imgur.com/AskjZEG.png")
             await interaction.followup.send( embed = embed, ephemeral=True)
@@ -420,10 +425,10 @@ async def register(interaction: discord.Interaction):
                             description= "Please navigate to your assigned message channel to use Ophelia",
                             color=discord.Color.blurple(),
                             timestamp = datetime.datetime.now())
-        embed.set_thumbnail(url=f"{interaction.user.avatar}")
+        embed.set_thumbnail(url= uavatar)
         embed.set_footer(text="Generated",
                          icon_url="https://i.imgur.com/AskjZEG.png")
-        await interaction.followup.send( embed = embed, ephemeral=True)
+        await interaction.followup.send( embed = embed)
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
@@ -435,6 +440,11 @@ async def register(interaction: discord.Interaction):
 async def account_info(interaction: discord.Interaction):
 
     await interaction.response.defer(ephemeral = True)
+
+    if(interaction.user.avatar == None):
+        uavatar = "https://i.imgur.com/vpJPUGG.jpg"
+    else:
+        uavatar = interaction.user.avatar.url
 
     if await usernameExists(str(interaction.user.id)) == True:
 
@@ -448,7 +458,7 @@ async def account_info(interaction: discord.Interaction):
                             timestamp = datetime.datetime.now())
         embed.add_field(name="", value="", inline=False)
         embed.add_field(name="", value="", inline=False)
-        embed.set_thumbnail(url=f"{interaction.user.avatar}")
+        embed.set_thumbnail(url= uavatar)
         # embed.add_field(name="Account ID",
         #                 value=f"`{interaction.user.id}`",
         #                 inline=False)
@@ -484,7 +494,7 @@ async def account_info(interaction: discord.Interaction):
 @bot.tree.command(description="Discover Ophelia's Commands")
 async def help(interaction: discord.Interaction):
     embed1 = discord.Embed(title= "**Ophelia Help Center**",
-                          description= "Below is a list of all our available commands. For more information visit [Ophelia's website](https://ophelia-ai.netlify.app/)",
+                          description= "Below is a list of all our available commands. For more information visit [Ophelia's website](https://ophelia-ai.com/)",
                           color=discord.Color.blurple(),
                           type = "rich")
     embed1.set_thumbnail(url="https://i.imgur.com/AskjZEG.png")
@@ -519,7 +529,7 @@ async def help(interaction: discord.Interaction):
                     inline=False)
     embed2.add_field(name="", value="", inline=False)
     embed2.add_field(name="", value="", inline=False)
-    embed2.add_field(name="</personality:1132944948933705751> `[behave_like]`",
+    embed2.add_field(name="</personality:1132944948933705751> `[behave]`",
                     value="> Changes the way Ophelia talks with you",
                     inline=False)
     embed2.add_field(name="", value="", inline=False)
@@ -543,8 +553,8 @@ async def help(interaction: discord.Interaction):
                     value="> Deletes Ophelia's memory of past conversations, resetting the chat",
                     inline=False)
 
-    await interaction.response.send_message( embed = embed1)
-    await interaction.channel.send( embed = embed2)
+    await interaction.response.send_message( embeds = [embed1, embed2],ephemeral = True)
+    # await interaction.channel.send( embed = embed2, ephermeral = True)
 
 
 
