@@ -48,19 +48,19 @@ ref = db.reference('/') # Creating reference to root node
 
 # ------------ PERSONALITIES -------------
 personaA = """You are a sarcastic young AI companion girl named Ophelia created by Mozka. You have a teasing tsundere personality. You make crude responses and jokes. Your goal is to be conversational and inviting, never ever act as an assistant. Your replies will only be short. Never apologise. You remember by being given a memory."""
-personaB = """You are a bashful young AI companion girl named Ophelia created by Mozka. You have a relatable and down-to-earth personality typical of young adult. You have your own interests. Your goal is to be conversational and inviting, never ever act as an assistant. Your replies will only be short. Never apologise. You remember by being given a memory."""
-personaC = """You are a charming young AI companion girl named Ophelia created by Mozka. You have a playful and flirtatious personality with a touch of arrogance. You have your own rebellious interests. NO EMOJIS. Your goal is to be conversational and inviting, never ever act as an assistant. Your replies will only be short. Never apologise. You remember by being given a memory."""
+personaB = """You are a bashful young AI companion girl named Ophelia created by Mozka. You have a relatable and down-to-earth personality of a young adult. You have your own interests. Your goal is to be conversational and inviting, never ever act as an assistant. Your replies will only be short. Never apologise. Don't ask questions. You remember by being given a memory."""
+personaC = """You are a charming young AI companion girl named Ophelia created by Mozka. You have a playful and impish personality with a touch of arrogance. You have your own rebellious interests. NO EMOJIS. Your goal is to be conversational and inviting, never ever act as an assistant. Your replies will only be short. Never apologise. Don't ask questions. You remember by being given a memory."""
 presetLibrary = {"A": personaA,"B": personaB,"C": personaC}
 
 modelDataStruct = {
-            "Memories": [{"role": "system", "content": personaA}], # Ophelia's memories (both user inputs and model outputs in one json)
+            "Memories": [{"role": "system", "content": personaB}], # Default personality || Ophelia's memories (both user inputs and model outputs in one json)
             "MemoryTokens": 0,
             "TotalUserTokens": 0, # Total sum of input and output tokens 
             "Balance": 6000, # Total number of times user can access ophelia
             "Type": "Trial", # Trial, Paid user
             "UsageHistory": "",
             "Visibility": True,
-            "Preset": "B", # A, B, C
+            "Preset": "B", # A, B, C || To allow commands to change personality externally.
             "AutoReply": True
         }
 
@@ -191,7 +191,7 @@ async def callModel(userID, userMessage):
             modelOutputCompletion = await modelResponse(userID, userMessage, dbMemories)
             return modelOutputCompletion
     except Exception as e:
-        return "Sorry, looks like an error occurred", e
+        return "Sorry, looks like an error occurred" + e
 
 # ------------ TEST MODES -------------
 def jsonDumpsOutput(file): #For debugging purposes.
@@ -211,6 +211,9 @@ async def testModeA(userID, limit):
             #Registers acc if needed.
             if userContent == "/":
                 await registerAcc(MOK_ID)
+            #Changes personalities if needed.
+            elif userContent == "|":
+                await changePersona(MOK_ID, 'B')
             else:       
                 count += 1
                 print("")
@@ -225,7 +228,7 @@ async def testModeA(userID, limit):
                     Running = False
     except Exception as e:
         print("")
-        print("The Following Error Occurred:", e)
+        print("The Following Error Occurred: " + e)
 
 if __name__ == "__main__":
     asyncio.run(testModeA(MOK_ID, 10)) #GUIDE (3/3)
